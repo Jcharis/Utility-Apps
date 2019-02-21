@@ -8,6 +8,15 @@
 + cx_Freeze
 + re
 
+#### Screenshot
++ Home
+![](images/emailextractor_home.png)
+
++ Extract Email
+![](images/emailextractor_email.png)
+
++ Extract URL
+![](images/emailextractor_url.png)
 
 #####.
 - By Jesse E.Agbe (JCharis)
