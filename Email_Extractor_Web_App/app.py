@@ -6,6 +6,9 @@ email_regex = re.compile(r"[\w\.-]+@[\w\.-]+")
 # phone_num = re.compile(r"^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$")
 # phone_num = re.compile(r"^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$")
 phone_num = re.compile(r'\d\d\d.\d\d\d.\d\d\d\d')
+url_https_regex = re.compile(r"https?://www\.?\w+\.\w+")
+url_regex = re.compile(r"http?://www\.?\w+\.\w+")
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -22,8 +25,15 @@ def process():
 			num_of_results = len(results)
 		elif choice == 'phone':
 			rawtext = request.form['rawtext']
-			print(rawtext)
 			results = phone_num.findall(rawtext)
+			num_of_results = len(results)
+		elif choice == 'url_https':
+			rawtext = request.form['rawtext']
+			results = url_https_regex.findall(rawtext)
+			num_of_results = len(results)
+		elif choice == 'url':
+			rawtext = request.form['rawtext']
+			results = url_regex.findall(rawtext)
 			num_of_results = len(results)
 		
 	
