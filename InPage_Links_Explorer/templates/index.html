@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>InPageLinks Explorer</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+</head>
+</head>
+<body><div class="navbar-fixed">
+   <nav class="grey darken-4" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="{{url_for('index')}}" class="brand-logo">InPageLinks</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="{{url_for('index')}}">Home</a></li>
+         <li><a href="#aboutapp">About</a></li>
+      </ul>
+
+      
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+</div>
+	<ul id="nav-mobile" class="sidenav">
+        <li><a href="{{url_for('index')}}">Home</a></li>
+         <li><a href="#contactme">About</a></li>
+      </ul>
+<!--Slider -->
+ <section class="slider">
+  <div id="index-banner" class="parallax-container">
+     <ul class="slides">
+      <li>
+        <img src="static/imgs/imagebl2.jpeg" alt="Unsplashed background img 1" alt="">
+        <div class="caption center-align">
+          <h2>InPage Links Explorer</h2>
+          <h5 class="light grey-text text-lighten-3 hide-on-small-only">
+           Analyzing URLS within pages
+          </h5>
+         
+           <div class="row center">
+          <a href="{{url_for('index')}}" id="download-button" class="btn-large waves-effect waves-light blue lighten-1">Refresh</a>
+        </div>
+        </div>
+      </li>
+      <li>
+       <img src="static/imgs/imagebl3.jpeg" alt="Unsplashed background img 1">
+        <div class="caption left-align">
+          <h2>Backlinks Exploration Kit</h2>
+          <h5 class="light grey-text text-lighten-3 hide-on-small-only">
+           Find Links In Web Pages
+          </h5>
+          <a href="#aboutapp" class="btn btn-large waves-effect waves-light light-blue lighten-1">Learn More</a>
+        </div>
+      </li>
+   
+    </ul>
+  </div>
+</section>
+
+<!-- Start of Main Section -->
+ <div class="container">
+    <div class="section">
+       
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="input-field col s12 m10">
+          <div class="icon-block">
+            <h2 class="center brown-text"><i class="material-icons">chrome_reader_mode</i></h2>
+           <form method="POST" action="/analyze">
+         <input name="main_url" cols="3" rows="5" class="form-control" required="true" placeholder="Enter URL Here"/>
+          
+         <br/>
+         <button class="btn btn-small waves-effect waves-light light-blue lighten-1" type="reset">Clear</button>
+          <button class="btn btn-small waves-effect waves-light purple lighten-1" type="submit">Analyze</button>
+          
+        </form>
+          </div>
+        </div>
+
+      </div>
+
+
+
+    </div>
+  </div>
+  <!-- End -->
+
+  <!-- Result Display-->
+
+   <section class="section section-solutions-about grey darken-2">
+ <div class="container white-text">
+ 
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m8">
+          <div class="icon-block">
+            <h2 class="center brown-text"><i class="material-icons">group</i></h2>
+            <h5 class="center">Site Info</h5>
+            
+            <p>Your Searched URL</p>
+    <p>{{ raw_url }}</p>
+<hr/>
+    <p><span style="color:white">Target URL</span>:: {{ target_url }}</p>
+    <p><span style="color:white">Target Domain</span>:: {{ domain_name }}</p>
+    <p><span style="color:white">Target IP</span>:: {{ hostip }}</p>
+             
+        </div>
+          </div>
+        </div>
+
+
+      </div>
+</section>
+
+
+  <section class="section section-solutions-about white darken-2">
+ <div class="container white-text">
+ 
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m6 grey darken-3">
+          <div class="icon-block">
+            <h2 class="center brown-text"><i class="material-icons">group</i></h2>
+            <h5 class="center">HTTPS Links</h5>
+            <ul class="list-group">
+            {% for link in httpslinks %}
+            <li  class="list-group-item">{{link}} <a href="{{link}}" target="_blank" class="btn-small btn-positive">View</a></li>
+            {% endfor %}
+            </ul>
+             
+        </div>
+          </div>
+      
+
+        <div class="col s12 m6 grey darken-3">
+          <div class="icon-block">
+            <h2 class="center brown-text"><i class="material-icons">chrome_reader_mode</i></h2>
+            
+            <h5 class="center">HTTPS Links Stats</h5>
+            <ul class="list-group">
+      
+            {% for link in links_freq_https %}
+            <li class="list-group-item">{{link}} ==>{{links_freq_https[link]}}</li>
+            {% endfor %}
+
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  
+
+</section>
+
+
+  <section class="section section-solutions-about white darken-2">
+ <div class="container white-text">
+ 
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m6 grey darken-3">
+          <div class="icon-block">
+            <h2 class="center brown-text"><i class="material-icons">group</i></h2>
+            <h5 class="center">HTTP Links</h5>
+            <ul class="list-group">
+            {% for link in httplinks %}
+            <li class="list-group-item">{{link}} <a href="{{link}}" target="_blank" class="btn-small btn-positive">View</a></li>
+            {% endfor %}
+            </ul>
+             
+        </div>
+          </div>
+      
+
+        <div class="col s12 m6 grey darken-3">
+          <div class="icon-block">
+            <h2 class="center brown-text"><i class="material-icons">chrome_reader_mode</i></h2>
+            
+            <h5 class="center">HTTP Links Stats</h5>
+            <ul class="list-group">
+          
+            <!-- <li>{{links_freq_http}}</li> -->
+            {% for link in links_freq_http %}
+            <li class="list-group-item">{{link}} ==>{{links_freq_http[link]}}</li>
+            {% endfor %}
+          
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  
+
+</section>
+
+
+
+
+
+  
+  <footer class="page-footer grey darken-4">
+    <div class="container" id="aboutapp">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">About InPageLinks Explorer</h5>
+          <p class="grey-text text-lighten-4"></p>
+
+
+        </div>
+      
+   <div class="col l3 s12">
+          <h5 class="white-text">Connect With Me</h5>
+          <ul>
+            <a href="https://facebook.com/jcharistech" target="_blank" class="white-text">
+            <i class="fab fa-facebook fa-4x"></i>
+          </a>
+          <a href="https://gh.linkedin.com/in/jesiel-emmanuel-agbemabiase-6935b690" target="_blank" class="white-text">
+            <i class="fab fa-linkedin fa-4x"></i>
+          </a>
+          <a href="https://www.youtube.com/channel/UC2wMHF4HBkTMGLsvZAIWzRg" target="_blank" class="white-text">
+            <i class="fab fa-youtube-square fa-4x"></i>
+          </a>
+           <a href="https://github.com/Jcharis/" target="_blank" class="white-text">
+            <i class="fab fa-github-square fa-4x"></i>
+          </a>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      Made by <a class="white-text text-lighten-3" href="">Jesse E.Agbe(JCharis)</a><br/>
+      <a class="white-text text-lighten-3" href="">Jesus Saves @JCharisTech  2019</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="static/js/materialize.js"></script>
+  <script src="static/js/init.js"></script>
+<!-- Jesse JCharis -->
+  </body>
+</html>
