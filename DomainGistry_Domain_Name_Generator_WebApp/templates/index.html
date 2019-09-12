@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>DomainGistry</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="main.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" href="/">DomainGistry</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About</a>
+      </li>
+
+
+    </ul>
+    <form class="form-inline my-2 my-lg-0" method="POST" action="/generate">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="raw_text" required="true">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Generate</button>
+    </form>
+  </div>
+</nav>
+<br/>
+<br/>
+<br/>
+
+<div class="container">
+    
+        <form  method="POST" action="/generate">
+            <input class="form-control" type="text" name="raw_text" required="true">
+            <br/>
+            <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-database"></i>Generate</button>
+            <button type="reset" class="btn btn-primary mb-2"><i class="fa fa-eraser"></i> Clear</button>
+            <a href="{{url_for('index')}}" class="btn btn-success mb-2"><i class="fa fa-redo"></i> Reset</a>
+        </form>
+        
+</div>
+   <!--  <div class="container">
+        <form class="form-inline" method="POST" action="/generate">
+          <div class="form-group mx-sm-1 mb-3">
+            <label for="inputText" class="sr-only">Your Text</label>
+            <input type="text" class="form-control" id="inputText" placeholder=" Your texts">
+          </div>
+          <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-database"></i>Generate</button>
+            <button type="reset" class="btn btn-primary mb-2    "><i class="fa fa-eraser"></i> Clear</button>
+        </form>
+    </div> -->
+
+<!--     <div class="container">
+        <div class="alert alert-success" role="alert">
+        <p class="alert-heading">Result</p>
+        <p>New</p>
+        <ul class="list-group">{% for i in cust_list %}
+            <li class="list-group-item">{{i}}</li>
+            {%endfor %}
+        </ul>
+        </div>
+    </div> -->
+
+    <div class="container">
+        <div class="alert alert-success" role="alert">
+        <p class="alert-heading">Result</p>
+        <p>Your Original Text was</p>
+        <ul class="list-group">
+            <li class="list-group-item">{{raw_text}}</li>
+            <li class="list-group-item">{{old_text}}</li>
+            <li class="list-group-item">Word Stats::{{word_stats}}</li>
+        
+        </ul>
+        </div>
+    </div>
+<div class="container">
+     <div class="row">
+  <div class="col-sm-4">
+    <div class="card  bg-secondary">
+      <div class="card-body">
+        <h5 class="card-title">Common Domains</h5>
+        <p class="card-text">Most Used Domain Extensions</p>
+       <ul class="list-group">{% for i in cust_list_common %}
+            <li class="list-group-item">{{i}}</li>
+            {%endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card bg-primary">
+      <div class="card-body">
+        <h5 class="card-title">New Domains</h5>
+        <p class="card-text">New Domain Extensions</p>
+        <ul class="list-group">{% for i in cust_list_new %}
+            <li class="list-group-item">{{i}}</li>
+            {%endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+    <div class="col-sm-4">
+    <div class="card bg-success">
+      <div class="card-body">
+        <h5 class="card-title">Extra Domains</h5>
+        <p class="card-text">Extra Domain Names</p>
+        <ul class="list-group">{% for i in cust_list_extra %}
+            <li class="list-group-item">{{i}}</li>
+            {%endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<br/>
+<br/>
+<div class="container">
+     <div class="row">
+  <div class="col-sm-4">
+    <div class="card  bg-secondary">
+      <div class="card-body">
+        <h5 class="card-title">Prefixed Domains</h5>
+        <p class="card-text">Domain Name starting with</p>
+       <ul class="list-group">{% for i in cust_list_prefix %}
+            <li class="list-group-item">{{i}}</li>
+            {%endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+      <div class="col-sm-4">
+    <div class="card bg-danger">
+      <div class="card-body">
+        <h5 class="card-title">Shuffled Domains</h5>
+        <p class="card-text">New Domain Name Shuffled</p>
+        <ul class="list-group">{% for i in cust_list_shuffled %}
+            <li class="list-group-item">{{i}}</li>
+            {%endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card bg-primary">
+      <div class="card-body">
+        <h5 class="card-title">Suffixed Domains</h5>
+        <p class="card-text">New Domain Name ending with</p>
+        <ul class="list-group">{% for i in cust_list_suffix %}
+            <li class="list-group-item">{{i}}</li>
+            {%endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+   
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>
